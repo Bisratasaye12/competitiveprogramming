@@ -1,0 +1,22 @@
+from sys import stdin
+def operation_on_graph():
+    n = int(stdin.readline())
+    ops = int(stdin.readline())
+    graph = [[] for i in range(n)]
+
+    for i in range(ops):
+        line = list(map(int, stdin.readline().strip().split()))
+        op = line[0]
+        if op == 1:
+            u = line[1]
+            v = line[2]
+            graph[u - 1].append(v - 1)
+            graph[v - 1].append(u - 1)
+        elif op == 2:
+            node = line[1]
+            if graph[node - 1]:
+                for k in range(len(graph[node - 1])):
+                    print(graph[node-1][k] + 1, end=" ")
+            print()
+if __name__ == "__main__":
+    operation_on_graph()
