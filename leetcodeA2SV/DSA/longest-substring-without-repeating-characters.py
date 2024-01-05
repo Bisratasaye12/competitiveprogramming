@@ -1,23 +1,25 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        result = ""
-        maxim = 0
-        if len(s) == 0:
-            return 0
-        for i in range(len(s)):
-            for j in range(i, len(s)):
-                if s[j] not in result:
-                    result += s[j]
-                else:
-                    break
+        n = len(s)
+        if n == 1: return 1
+        el_to_indices = defaultdict(int)
+        l, r = 0, 0
+        longest = 0
 
-            if len(result) > maxim:
-                maxim = len(result)
-            result = "" 
+        while r < n:
+            if s[r] in el_to_indices and el_to_indices[s[r]] >= l:
+                longest = max(longest, r-l)
+                l = el_to_indices[s[r]] + 1
+              
+            el_to_indices[s[r]] = r
+            print(l,r)
+            r += 1
+
+        longest = max(longest, r-l)
+        #print(el_to_indices)
 
 
-           
-        return maxim
-            
+        return longest
 
+        
 
